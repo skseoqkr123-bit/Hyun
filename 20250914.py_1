@@ -1,0 +1,42 @@
+# 학생 성적 관리 프로그램 (튜플만 사용)
+
+# 학생 정보를 저장할 빈 튜플
+students = ()
+
+# 학생 수 입력
+print("=== 학생 성적 관리 프로그램 ===")
+count = int(input("학생 수를 입력하세요: "))
+
+# 학생 정보 입력받기
+for i in range(count):
+    name = input(f"{i+1}번 학생 이름: ")
+    score = int(input(f"{name} 학생의 성적: "))
+    students = students + ((name, score),)
+
+# 성적 기준 내림차순 정렬
+sorted_students = tuple(sorted(students, key=lambda x: x[1], reverse=True))
+
+# 석차 계산 (동점자 처리)
+ranks = ()
+prev_score = None
+rank = 0
+for i, (name, score) in enumerate(sorted_students):
+    if score != prev_score:
+        rank = i + 1
+    ranks = ranks + ((name, score, rank),)
+    prev_score = score
+
+# 결과 출력
+print("\n=== 석차 결과 ===")
+print("이름    성적    석차")
+print("-" * 25)
+for name, score, rank in ranks:
+    print(f"{name:<6} {score:<8} {rank}")
+
+# 튜플 설명
+print("\n[튜플 설명]")
+print("튜플은 여러 값을 하나의 변수에 저장할 수 있는 자료형입니다.")
+print("튜플은 불변(immutable)이며, 요소 추가 시 + 연산으로 새 튜플을 만듭니다.")
+print("예시: t = (1, 2, 3)")
+print("인덱싱, 슬라이싱, 반복문 사용 가능")
+
